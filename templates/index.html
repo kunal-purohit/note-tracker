@@ -15,325 +15,200 @@
         html,
         body {
             height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f6f6f6;
+            color: #333;
         }
 
-        .layout {
-            display: flex;
-            height: 100vh;
-        }
-
-        .sidebar {
-            width: 300px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .sidebar h2 {
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid #34495e;
-            padding-bottom: 10px;
-        }
-
-        .main-content {
-            flex: 1;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 20px;
         }
 
         .header {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .controls {
             margin-bottom: 20px;
         }
 
-        .file-path-group {
+        .file-input-group {
             display: flex;
             gap: 10px;
-            align-items: center;
+            margin-bottom: 12px;
         }
 
         input[type="text"] {
             flex: 1;
-            padding: 10px 15px;
+            padding: 10px 14px;
             font-size: 14px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            transition: border-color 0.3s;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            transition: border-color 0.2s;
         }
 
         input[type="text"]:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: #333;
         }
 
         button {
             padding: 10px 20px;
             font-size: 14px;
-            background-color: #3498db;
+            font-weight: 500;
+            background: #1a1a1a;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.2s;
         }
 
         button:hover {
-            background-color: #2980b9;
-        }
-
-        button:active {
-            transform: scale(0.98);
+            background: #333;
         }
 
         #file-status {
-            margin-top: 10px;
             font-size: 13px;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #666;
+            padding: 8px 0;
         }
 
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #95a5a6;
-        }
-
-        .status-indicator.saving {
-            background-color: #f39c12;
-            animation: pulse 1s infinite;
-        }
-
-        .status-indicator.saved {
-            background-color: #27ae60;
-        }
-
-        .status-indicator.error {
-            background-color: #e74c3c;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .editor-container {
+        .editor-wrapper {
             flex: 1;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }
 
         textarea {
+            flex: 1;
             width: 100%;
-            height: 100%;
             border: none;
             padding: 0;
             font-size: 15px;
-            font-family: 'Courier New', monospace;
+            font-family: monospace;
             resize: none;
             line-height: 1.6;
+            color: #1a1a1a;
         }
 
         textarea:focus {
             outline: none;
         }
 
-        .commit-list {
-            list-style: none;
+        textarea::placeholder {
+            color: #aaa;
         }
 
-        .commit-item {
-            background-color: #34495e;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            border-left: 3px solid #3498db;
-        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+            }
 
-        .commit-message {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
+            .file-input-group {
+                flex-direction: column;
+            }
 
-        .commit-meta {
-            color: #95a5a6;
-            font-size: 11px;
-        }
-
-        .no-commits {
-            color: #95a5a6;
-            font-style: italic;
-            font-size: 13px;
-        }
-
-        .info-box {
-            background-color: #34495e;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-
-        .info-box code {
-            background-color: #2c3e50;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 12px;
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="layout">
-        <div class="sidebar">
-            <h2>📜 Commit History</h2>
-            <div id="history-container">
-                <p class="no-commits">Load a file to see history</p>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>Note Tracker</h1>
+            <p>Auto-saves and commits changes with Git</p>
         </div>
 
-        <div class="main-content">
-            <div class="header">
-                <div class="info-box">
-                    <strong>Allowed Directory:</strong> <code id="allowed-dir"></code>
-                </div>
-                <div class="file-path-group">
-                    <input type="text" id="filePath"
-                        placeholder="Enter file path (e.g., ~/Documents/notes/myfile.txt)" />
-                    <button id="loadFileBtn">Load File</button>
-                    <button id="refreshHistoryBtn" style="background-color: #95a5a6;">🔄 History</button>
-                </div>
-                <div id="file-status">
-                    <span class="status-indicator"></span>
-                    <span id="status-text">No file selected</span>
-                </div>
+        <div class="controls">
+            <div class="file-input-group">
+                <input type="text" id="filePath" placeholder="Enter file path" />
+                <button id="loadFileBtn">Load</button>
             </div>
 
-            <div class="editor-container">
-                <textarea placeholder="Your notes will appear here... Start typing to create a new file!"
-                    id="txtarea"></textarea>
-            </div>
+            <div id="file-status">No file selected</div>
+        </div>
+
+        <div class="editor-wrapper">
+            <textarea id="txtarea" placeholder="Start typing..."></textarea>
         </div>
     </div>
 
     <script>
         let textarea;
-        let currentFilePath = "";
 
-        function updateStatus(message, type = 'idle') {
-            const statusText = document.getElementById('status-text');
-            const indicator = document.querySelector('.status-indicator');
-
-            statusText.textContent = message;
-            indicator.className = 'status-indicator ' + type;
-        }
-
-        function loadHistory() {
-            if (!currentFilePath) {
-                return;
-            }
-
-            fetch('/get-history', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ path: currentFilePath })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById('history-container');
-
-                    if (data.error) {
-                        container.innerHTML = `<p class="no-commits">Error: ${data.error}</p>`;
-                        return;
-                    }
-
-                    if (!data.commits || data.commits.length === 0) {
-                        container.innerHTML = `<p class="no-commits">${data.message || 'No commits yet'}</p>`;
-                        return;
-                    }
-
-                    container.innerHTML = '<ul class="commit-list">' +
-                        data.commits.map(commit => `
-                            <li class="commit-item">
-                                <div class="commit-message">${commit.message}</div>
-                                <div class="commit-meta">
-                                    ${commit.date} • ${commit.sha}
-                                </div>
-                            </li>
-                        `).join('') +
-                        '</ul>';
-                })
-                .catch(err => {
-                    console.error('Error loading history:', err);
-                });
+        function updateStatus(message) {
+            document.getElementById('file-status').textContent = message;
         }
 
         function checkTyping() {
             let timer;
-            const timeoutVal = 2000; // 2 seconds
+            const timeoutVal = 2000;
             const txt = document.getElementById("txtarea");
 
             txt.addEventListener('keypress', () => {
                 clearTimeout(timer);
-                updateStatus('Typing...', 'idle');
             });
 
             txt.addEventListener('keyup', () => {
                 clearTimeout(timer);
                 timer = setTimeout(() => {
-                    console.log("Stopped typing - saving...");
+                    const userPath = document.getElementById('filePath').value.trim();
 
-                    if (!currentFilePath) {
-                        updateStatus('No file loaded', 'error');
-                        console.warn("No file path set, skipping save.");
+                    if (userPath === "") {
+                        updateStatus('No file path entered');
                         return;
                     }
 
-                    updateStatus('Saving...', 'saving');
+                    updateStatus('Saving...');
 
                     fetch('/file-updated', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
                         body: JSON.stringify({
-                            path: currentFilePath,
+                            path: userPath,
                             content: textarea.value
                         })
                     })
                         .then(res => res.json())
                         .then(data => {
                             if (data.error) {
-                                updateStatus('Error: ' + data.error, 'error');
-                                console.error("Server error:", data.error);
+                                updateStatus('Error: ' + data.error);
                             } else {
-                                updateStatus('Saved and committed ✓', 'saved');
-                                console.log("Server response:", data);
-                                // Refresh history after save
-                                setTimeout(loadHistory, 500);
+                                updateStatus('Saved');
                             }
                         })
                         .catch(err => {
-                            updateStatus('Failed to save', 'error');
-                            console.error("Error sending POST:", err);
+                            updateStatus('Failed to save');
+                            console.error("Error:", err);
                         });
                 }, timeoutVal);
             });
@@ -342,48 +217,47 @@
         function setup() {
             const filePathInput = document.getElementById("filePath");
             const loadFileBtn = document.getElementById("loadFileBtn");
-            const refreshHistoryBtn = document.getElementById("refreshHistoryBtn");
             textarea = document.getElementById("txtarea");
 
             loadFileBtn.addEventListener('click', () => {
                 const userPath = filePathInput.value.trim();
                 if (!userPath) {
-                    alert("Please enter a file path to load.");
+                    alert("Please enter a file path");
                     return;
                 }
 
-                updateStatus('Loading...', 'saving');
+                updateStatus('Loading...');
 
                 fetch('/read-file', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ path: userPath })
                 })
-                    .then(res => res.json())
+                    .then(res => {
+                        if (!res.ok) throw new Error("Failed to read file");
+                        return res.json();
+                    })
                     .then(data => {
                         if (data.error) {
                             alert("Error: " + data.error);
-                            updateStatus('Error loading file', 'error');
+                            updateStatus('Error loading file');
                             return;
                         }
                         textarea.value = data.content || "";
-                        currentFilePath = data.path || userPath;
-                        updateStatus('Loaded: ' + currentFilePath, 'saved');
-                        loadHistory();
+                        updateStatus('Loaded: ' + userPath);
                     })
                     .catch(err => {
                         alert(err.message);
-                        updateStatus('Error loading file', 'error');
+                        updateStatus('Error loading file');
                     });
             });
-
-            refreshHistoryBtn.addEventListener('click', loadHistory);
 
             checkTyping();
         }
 
         window.onload = setup;
     </script>
+
 </body>
 
 </html>
